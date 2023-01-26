@@ -20,21 +20,21 @@ public class Usuario {
 	private String nombre;
 	private String correoElectronico;
 	private String telefono;
-	private String contraseña;
+	private String contrasenia;
 	private String administrador;
 	
 	public Usuario() {
 		//Vacio
 	}
 
-	public Usuario(String usuario, String nombre, String correoElectronico, String telefono, String contraseña,
+	public Usuario(String usuario, String nombre, String correoElectronico, String telefono, String contrasenia,
 			String administrador) {
 		super();
 		this.usuario = usuario;
 		this.nombre = nombre;
 		this.correoElectronico = correoElectronico;
 		this.telefono = telefono;
-		this.contraseña = contraseña;
+		this.contrasenia = contrasenia;
 		this.administrador = administrador;
 	}
 
@@ -70,12 +70,12 @@ public class Usuario {
 		this.telefono = telefono;
 	}
 
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasenia() {
+		return contrasenia;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasenia(String contrasenia) {
+		this.contrasenia = contrasenia;
 	}
 
 	public String getAdministrador() {
@@ -93,7 +93,6 @@ public class Usuario {
 	@Override
 	public String toString() {
 		return "usuario=" + usuario + ", nombre=" + nombre
-				+ ", correoElectronico=" + correoElectronico + ", telefono=" + telefono + ", contraseña=" + contraseña
 				+ ", administrador=" + administrador + "]";
 	}
 	

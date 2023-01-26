@@ -40,8 +40,8 @@ public class LibroService {
 		return libroRepository.save(libro);
 	}//AddLibro
 	
-	public Libro updateProducto(Integer libroID, String titulo, String autor, String url, String genero, Integer anioPublicacion, Double precio, String pais,
-			String editorial) {
+	public Libro updateLibro(Integer libroID, String titulo, String autor, String url, String genero, Integer anioPublicacion, String pais,
+			String editorial, Double precio) {
 		Libro tmp = null;
 		if(libroRepository.existsById(libroID)) {
 			tmp=libroRepository.findById(libroID).get();
