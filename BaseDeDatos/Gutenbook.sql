@@ -8,14 +8,139 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema tiendaLiTest
 -- -----------------------------------------------------
 -- -----------------------------------------------------
+-- Schema gutenbokk
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema gutenbokk
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `gutenbokk` ;
+-- -----------------------------------------------------
 -- Schema gutenbook
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
 -- Schema gutenbook
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `gutenbook` ;
+CREATE SCHEMA IF NOT EXISTS `gutenbook` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `gutenbokk` ;
+
+-- -----------------------------------------------------
+-- Table `gutenbokk`.`libro`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gutenbokk`.`libro` (
+  `libroID` INT NOT NULL AUTO_INCREMENT,
+  `titulo` VARCHAR(100) NOT NULL,
+  `autor` VARCHAR(100) NOT NULL,
+  `url` VARCHAR(300) NOT NULL,
+  `genero` VARCHAR(50) NOT NULL,
+  `anioPublicacion` INT NOT NULL,
+  `precio` DOUBLE NOT NULL,
+  `pais` VARCHAR(50) NOT NULL,
+  `editorial` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`libroID`),
+  UNIQUE INDEX `url_UNIQUE` (`url` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `gutenbokk`.`inventario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gutenbokk`.`inventario` (
+  `unidades` INT NOT NULL,
+  `descripcion` VARCHAR(250) NULL,
+  `libro_libroID` INT NOT NULL,
+  PRIMARY KEY (`libro_libroID`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `gutenbokk`.`usuario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gutenbokk`.`usuario` (
+  `IDusuario` INT NOT NULL AUTO_INCREMENT,
+  `usuario` VARCHAR(100) NOT NULL,
+  `nombre` VARCHAR(75) NOT NULL,
+  `correoElectronico` VARCHAR(250) NOT NULL,
+  `telefono` VARCHAR(20) NOT NULL,
+  `contrasenia` VARCHAR(100) NOT NULL,
+  `administrador` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`IDusuario`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `gutenbokk`.`direccion`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gutenbokk`.`direccion` (
+  `NumeroOrden` INT NOT NULL AUTO_INCREMENT,
+  `calle` VARCHAR(50) NOT NULL,
+  `colonia` VARCHAR(75) NOT NULL,
+  `delegacion` VARCHAR(55) NOT NULL,
+  `estado` VARCHAR(45) NOT NULL,
+  `codigoPostal` VARCHAR(45) NOT NULL,
+  `usuario_IDusuario` INT NOT NULL,
+  PRIMARY KEY (`NumeroOrden`, `usuario_IDusuario`),
+  INDEX `fk_direccion_usuario1_idx` (`usuario_IDusuario` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `gutenbokk`.`pedido`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gutenbokk`.`pedido` (
+  `idpedido` INT NOT NULL AUTO_INCREMENT,
+  `cantidad` INT NOT NULL,
+  `total` DOUBLE NOT NULL,
+  `usuario_IDusuario` INT NOT NULL,
+  PRIMARY KEY (`idpedido`, `usuario_IDusuario`),
+  INDEX `fk_pedido_usuario1_idx` (`usuario_IDusuario` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `gutenbokk`.`pedido_has_libro`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gutenbokk`.`pedido_has_libro` (
+  `pedido_idpedido` INT NOT NULL,
+  `libro_libroID` INT NOT NULL,
+  PRIMARY KEY (`pedido_idpedido`, `libro_libroID`),
+  INDEX `fk_pedido_has_libro_libro1_idx` (`libro_libroID` ASC) VISIBLE,
+  INDEX `fk_pedido_has_libro_pedido1_idx` (`pedido_idpedido` ASC) VISIBLE)
+ENGINE = InnoDB;
+
 USE `gutenbook` ;
+
+-- -----------------------------------------------------
+-- Table `gutenbook`.`direccion`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gutenbook`.`direccion` (
+  `NumeroOrden` INT NOT NULL AUTO_INCREMENT,
+  `calle` VARCHAR(50) NOT NULL,
+  `colonia` VARCHAR(75) NOT NULL,
+  `delegacion` VARCHAR(55) NOT NULL,
+  `estado` VARCHAR(45) NOT NULL,
+  `codigoPostal` VARCHAR(45) NOT NULL,
+  `usuario_IDusuario` INT NOT NULL,
+  PRIMARY KEY (`NumeroOrden`, `usuario_IDusuario`),
+  INDEX `fk_direccion_usuario1_idx` (`usuario_IDusuario` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `gutenbook`.`inventario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gutenbook`.`inventario` (
+  `unidades` INT NOT NULL,
+  `descripcion` VARCHAR(250) NULL DEFAULT NULL,
+  `libro_libroID` INT NOT NULL,
+  PRIMARY KEY (`libro_libroID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
 
 -- -----------------------------------------------------
 -- Table `gutenbook`.`libro`
@@ -26,29 +151,44 @@ CREATE TABLE IF NOT EXISTS `gutenbook`.`libro` (
   `autor` VARCHAR(100) NOT NULL,
   `url` VARCHAR(300) NOT NULL,
   `genero` VARCHAR(50) NOT NULL,
-  `anoPublicacion` YEAR NOT NULL,
-  `precio` FLOAT NOT NULL,
+  `anioPublicacion` INT NOT NULL,
+  `precio` DOUBLE NOT NULL,
   `pais` VARCHAR(50) NOT NULL,
   `editorial` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`libroID`),
   UNIQUE INDEX `url_UNIQUE` (`url` ASC) VISIBLE)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `gutenbook`.`inventario`
+-- Table `gutenbook`.`pedido`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gutenbook`.`inventario` (
-  `unidades` INT NOT NULL,
-  `descripcion` VARCHAR(250) NULL,
+CREATE TABLE IF NOT EXISTS `gutenbook`.`pedido` (
+  `idpedido` INT NOT NULL AUTO_INCREMENT,
+  `cantidad` INT NOT NULL,
+  `total` DOUBLE NOT NULL,
+  `usuario_IDusuario` INT NOT NULL,
+  PRIMARY KEY (`idpedido`, `usuario_IDusuario`),
+  INDEX `fk_pedido_usuario1_idx` (`usuario_IDusuario` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `gutenbook`.`pedido_has_libro`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gutenbook`.`pedido_has_libro` (
+  `pedido_idpedido` INT NOT NULL,
   `libro_libroID` INT NOT NULL,
-  PRIMARY KEY (`libro_libroID`),
-  CONSTRAINT `fk_inventario_libro1`
-    FOREIGN KEY (`libro_libroID`)
-    REFERENCES `gutenbook`.`libro` (`libroID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  PRIMARY KEY (`pedido_idpedido`, `libro_libroID`),
+  INDEX `fk_pedido_has_libro_libro1_idx` (`libro_libroID` ASC) VISIBLE,
+  INDEX `fk_pedido_has_libro_pedido1_idx` (`pedido_idpedido` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
@@ -60,71 +200,12 @@ CREATE TABLE IF NOT EXISTS `gutenbook`.`usuario` (
   `nombre` VARCHAR(75) NOT NULL,
   `correoElectronico` VARCHAR(250) NOT NULL,
   `telefono` VARCHAR(20) NOT NULL,
-  `contraseña` VARCHAR(100) NOT NULL,
-  `administrador` VARCHAR(1) BINARY NOT NULL,
+  `contrasenia` VARCHAR(100) NOT NULL,
+  `administrador` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`IDusuario`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `gutenbook`.`direccion`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gutenbook`.`direccion` (
-  `NumeroOrden` INT NOT NULL AUTO_INCREMENT,
-  `calle` VARCHAR(50) NOT NULL,
-  `colonia` VARCHAR(75) NOT NULL,
-  `delegacion/municipio` VARCHAR(55) NOT NULL,
-  `estado` VARCHAR(45) NOT NULL,
-  `codigoPostal` VARCHAR(45) NOT NULL,
-  `usuario_IDusuario` INT NOT NULL,
-  PRIMARY KEY (`NumeroOrden`, `usuario_IDusuario`),
-  INDEX `fk_direccion_usuario1_idx` (`usuario_IDusuario` ASC) VISIBLE,
-  CONSTRAINT `fk_direccion_usuario1`
-    FOREIGN KEY (`usuario_IDusuario`)
-    REFERENCES `gutenbook`.`usuario` (`IDusuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `gutenbook`.`pedido`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gutenbook`.`pedido` (
-  `idpedido` INT NOT NULL AUTO_INCREMENT,
-  `cantidad` INT NOT NULL,
-  `total` FLOAT NOT NULL,
-  `usuario_IDusuario` INT NOT NULL,
-  PRIMARY KEY (`idpedido`, `usuario_IDusuario`),
-  INDEX `fk_pedido_usuario1_idx` (`usuario_IDusuario` ASC) VISIBLE,
-  CONSTRAINT `fk_pedido_usuario1`
-    FOREIGN KEY (`usuario_IDusuario`)
-    REFERENCES `gutenbook`.`usuario` (`IDusuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `gutenbook`.`pedido_has_libro`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gutenbook`.`pedido_has_libro` (
-  `pedido_idpedido` INT NOT NULL,
-  `libro_libroID` INT NOT NULL,
-  PRIMARY KEY (`pedido_idpedido`, `libro_libroID`),
-  INDEX `fk_pedido_has_libro_libro1_idx` (`libro_libroID` ASC) VISIBLE,
-  INDEX `fk_pedido_has_libro_pedido1_idx` (`pedido_idpedido` ASC) VISIBLE,
-  CONSTRAINT `fk_pedido_has_libro_pedido1`
-    FOREIGN KEY (`pedido_idpedido`)
-    REFERENCES `gutenbook`.`pedido` (`idpedido`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_pedido_has_libro_libro1`
-    FOREIGN KEY (`libro_libroID`)
-    REFERENCES `gutenbook`.`libro` (`libroID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
