@@ -8,13 +8,13 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema tiendaLiTest
 -- -----------------------------------------------------
 -- -----------------------------------------------------
--- Schema gutenbokk
+-- Schema new_schema1
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema gutenbokk
+-- Schema new_schema1
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `gutenbokk` ;
+CREATE SCHEMA IF NOT EXISTS `new_schema1` ;
 -- -----------------------------------------------------
 -- Schema gutenbook
 -- -----------------------------------------------------
@@ -23,12 +23,12 @@ CREATE SCHEMA IF NOT EXISTS `gutenbokk` ;
 -- Schema gutenbook
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `gutenbook` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
-USE `gutenbokk` ;
+USE `new_schema1` ;
 
 -- -----------------------------------------------------
--- Table `gutenbokk`.`libro`
+-- Table `new_schema1`.`libro`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gutenbokk`.`libro` (
+CREATE TABLE IF NOT EXISTS `new_schema1`.`libro` (
   `libroID` INT NOT NULL AUTO_INCREMENT,
   `titulo` VARCHAR(100) NOT NULL,
   `autor` VARCHAR(100) NOT NULL,
@@ -44,9 +44,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gutenbokk`.`inventario`
+-- Table `new_schema1`.`inventario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gutenbokk`.`inventario` (
+CREATE TABLE IF NOT EXISTS `new_schema1`.`inventario` (
   `unidades` INT NOT NULL,
   `descripcion` VARCHAR(250) NULL,
   `libro_libroID` INT NOT NULL,
@@ -55,9 +55,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gutenbokk`.`usuario`
+-- Table `new_schema1`.`usuario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gutenbokk`.`usuario` (
+CREATE TABLE IF NOT EXISTS `new_schema1`.`usuario` (
   `IDusuario` INT NOT NULL AUTO_INCREMENT,
   `usuario` VARCHAR(100) NOT NULL,
   `nombre` VARCHAR(75) NOT NULL,
@@ -70,9 +70,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gutenbokk`.`direccion`
+-- Table `new_schema1`.`direccion`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gutenbokk`.`direccion` (
+CREATE TABLE IF NOT EXISTS `new_schema1`.`direccion` (
   `NumeroOrden` INT NOT NULL AUTO_INCREMENT,
   `calle` VARCHAR(50) NOT NULL,
   `colonia` VARCHAR(75) NOT NULL,
@@ -86,9 +86,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gutenbokk`.`pedido`
+-- Table `new_schema1`.`pedido`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gutenbokk`.`pedido` (
+CREATE TABLE IF NOT EXISTS `new_schema1`.`pedido` (
   `idpedido` INT NOT NULL AUTO_INCREMENT,
   `cantidad` INT NOT NULL,
   `total` DOUBLE NOT NULL,
@@ -99,9 +99,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gutenbokk`.`pedido_has_libro`
+-- Table `new_schema1`.`pedido_has_libro`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gutenbokk`.`pedido_has_libro` (
+CREATE TABLE IF NOT EXISTS `new_schema1`.`pedido_has_libro` (
   `pedido_idpedido` INT NOT NULL,
   `libro_libroID` INT NOT NULL,
   PRIMARY KEY (`pedido_idpedido`, `libro_libroID`),
