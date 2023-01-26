@@ -14,13 +14,13 @@ public class Libro {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="libroID", unique=true, nullable=false)
 	
-	private int libroID;
+	private Integer libroID;
 	@Column(nullable=false)
 	private String titulo;
 	private String autor;
 	private String url;
 	private String genero;
-	private int anoPublicacion;
+	private Integer anioPublicacion;
 	private Double precio;
 	private String pais;
 	private String editorial;
@@ -29,14 +29,14 @@ public class Libro {
 		//Vacio
 	}
 
-	public Libro(String titulo, String autor, String url, String genero, int anoPublicacion, Double precio, String pais,
+	public Libro(String titulo, String autor, String url, String genero, Integer anioPublicacion, Double precio, String pais,
 			String editorial) {
 		super();
 		this.titulo = titulo;
 		this.autor = autor;
 		this.url = url;
 		this.genero = genero;
-		this.anoPublicacion = anoPublicacion;
+		this.anioPublicacion = anioPublicacion;
 		this.precio = precio;
 		this.pais = pais;
 		this.editorial = editorial;
@@ -75,12 +75,12 @@ public class Libro {
 		this.genero = genero;
 	}
 
-	public int getAnoPublicacion() {
-		return anoPublicacion;
+	public Integer getAnioPublicacion() {
+		return anioPublicacion;
 	}
 
-	public void setAnoPublicacion(int anoPublicacion) {
-		this.anoPublicacion = anoPublicacion;
+	public void setAnioPublicacion(Integer anioPublicacion) {
+		this.anioPublicacion = anioPublicacion;
 	}
 
 	public Double getPrecio() {
@@ -107,14 +107,14 @@ public class Libro {
 		this.editorial = editorial;
 	}
 
-	public int getLibroID() {
+	public Integer getLibroID() {
 		return libroID;
 	}
 
 	@Override
 	public String toString() {
 		return "titulo=" + titulo + ", autor=" + autor + ", url=" + url + ", genero="
-				+ genero + ", anoPublicacion=" + anoPublicacion + ", precio=" + precio + ", pais=" + pais
+				+ genero + ", anoPublicacion=" + anioPublicacion + ", precio=" + precio + ", pais=" + pais
 				+ ", editorial=" + editorial + "]";
 	}
 	
