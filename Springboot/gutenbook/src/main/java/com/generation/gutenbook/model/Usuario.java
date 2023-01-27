@@ -21,6 +21,7 @@ public class Usuario {
 	private String correoElectronico;
 	private String telefono;
 	private String contrasenia;
+	@Column(nullable=true)
 	private String administrador;
 	
 	public Usuario() {
@@ -86,16 +87,16 @@ public class Usuario {
 		this.administrador = administrador;
 	}
 
-	public int getIDusuario() {
+	public Integer getIDusuario() {
 		return IDusuario;
 	}
 
 	@Override
 	public String toString() {
-		return "usuario=" + usuario + ", nombre=" + nombre
+		return "Usuario [IDusuario=" + IDusuario + ", usuario=" + usuario + ", nombre=" + nombre
+				+ ", correoElectronico=" + correoElectronico + ", telefono=" + telefono + ", contrasenia=" + contrasenia
 				+ ", administrador=" + administrador + "]";
 	}
-	
 	
 	
 }
