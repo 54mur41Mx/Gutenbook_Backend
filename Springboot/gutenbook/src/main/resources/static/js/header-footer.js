@@ -11,16 +11,16 @@ function limpiar(){
  sessionStorage.removeItem('admin')
 }
 
-
+/*
 if( (sessionStorage.getItem('userlogged') != null) && sessionStorage.getItem('admin')!=null ){
   sesion= "Cerrar sesión";
     link = `<a class="nav-link" id="logi" aria-current="page" href="index.html" onclick="limpiar()" > <span id="spant"> ${sesion} </span> </a>`
-    superuser = `<li><a class="dropdown-item" href="registroLibro.html">Agregar Libro</a></li>`
+ } */
    
-}else if(sessionStorage.getItem('userlogged') != null) {
+ if(sessionStorage.getItem('userlogged') != null) {
   sesion= "Cerrar sesión";
   link = `<a class="nav-link" id="logi" aria-current="page" href="index.html" onclick="limpiar()" > <span id="spant"> ${sesion} </span> </a>`
-  superuser = ` `
+  superuser = `<li><a class="dropdown-item" href="registroLibro.html">Agregar Libro</a></li>`
 } else {
   sesion = "Ingresar";
    link = `<a class="nav-link my-1" id="logi" aria-current="page" href="registro.html"> <span id="spant"> ${sesion} </span> </a>`

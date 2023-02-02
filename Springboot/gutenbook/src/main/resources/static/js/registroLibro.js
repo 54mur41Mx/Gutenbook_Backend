@@ -107,15 +107,36 @@ btnEnviar.addEventListener("click", function(event){
           )
     }
         
-    let elemento = `{
+   /* let elemento = `{
         "name":"${titulo.value}",
         "img":"${img.value}",
         "description":"${autor.value}",
         "price":${parseFloat(precio.value)}
       }`;
-    console.log(elemento);
-    datos.push(JSON.parse(elemento));
-    localStorage.setItem("datos", JSON.stringify(datos));
+      
+      datos.push(JSON.parse(elemento)); */
+      
+		 let _datos = {
+		titulo: titulo.value,
+        autor: autor.value,
+        url: img.value,
+        genero: "",
+        anioPublicacion:0 ,
+        precio: parseFloat(precio.value),
+        description: "",
+        editorial: ""
+		}
+		
+		fetch('/api/libros/', {
+		  method: "POST",
+		  body: JSON.stringify(_datos),
+		  headers: {"Content-type": "application/json; charset=UTF-8"}
+		})
+		.then(response => response.json()) 
+		.then(json => console.log(json))
+		.catch(err => console.log(err));
+    
+   
 
 
     titulo.value = "";

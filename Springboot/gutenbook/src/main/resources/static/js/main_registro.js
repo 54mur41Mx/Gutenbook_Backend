@@ -1,3 +1,5 @@
+
+
 let signInBtn = document.querySelector("#sign-in-btn");
 let signUpBtn = document.querySelector("#sign-up-btn");
 let container = document.querySelector(".container-register");
@@ -10,10 +12,10 @@ let pass
 let userlogged
 
 // Arreglo de usuarios
-usuarios = new Map ();
+//usuarios = new Map ();
 
-usuarios.set('admin',{"correo":"admin@gutenbook.com","tel":"5562441585", "contraseña":"P4$$w0rd"});
-usuarios.set('pepito',{"correo":"pepepecas@gmailcom","tel":"5519451524", "contraseña":"Contraseña.123"});
+//usuarios.set('admin',{"correo":"admin@gutenbook.com","tel":"5562441585", "contraseña":"P4$$w0rd"});
+//usuarios.set('pepito',{"correo":"pepepecas@gmailcom","tel":"5519451524", "contraseña":"Contraseña.123"});
 
 
 signUpBtn.addEventListener('click', () => {
@@ -275,6 +277,7 @@ btnsubmit.addEventListener("click", function(event){
     messageContrasenaUp4.style.display = "none"
     messageContrasenaUp5.style.display = "none"
 
+   /*
     let elemento = `{
         "Usuario": "${txtNombreUp.value}",
         "Email": "${txtEmailUp.value}",
@@ -284,7 +287,25 @@ btnsubmit.addEventListener("click", function(event){
 
     users.push(JSON.parse(elemento));
     console.log(users);
-    localStorage.setItem("users", JSON.stringify(users))
+    localStorage.setItem("users", JSON.stringify(users)) */
+    
+    	 let _registro = {
+		usuario: txtNombreUp.value,
+		nombre:"",
+        correoElectronico: txtEmailUp.value,
+        telefono: txtTelUp.value,
+        contrasenia: txtContrasenaUp.value,
+        administrador: ""
+		}
+		
+		fetch('/api/usuarios/', {
+		  method: "POST",
+		  body: JSON.stringify(_registro),
+		  headers: {"Content-type": "application/json; charset=UTF-8"}
+		})
+		.then(response => response.json()) 
+		.then(json => console.log(json))
+		.catch(err => console.log(err));
 
     
     Swal.fire(
@@ -308,7 +329,7 @@ btnsubmit.addEventListener("click", function(event){
 });//btnsubmit
 
 
-
+/*
 function agregarUsuarios(item){
     usuarios.set(item.Usuario,{"correo":item.Email,"tel":item.Telefono, "contraseña":item.Contrasena});
 }
@@ -321,7 +342,7 @@ function extraerdato(item){
     }
      
 
-}
+} 
 
     try {
         var captura = JSON.parse(localStorage.getItem('users'));
@@ -338,17 +359,68 @@ function extraerdato(item){
     } catch (error) {
         console.error(error);
     }
-
+*/
     
     btnsubmitIn.addEventListener("click", function(event){
         event.preventDefault();
         clearTimeout(idTimeout);
-
-
-        let arreglodatos = usuarios.get(txtNombreIn.value)
-        let nombredeuduario = usuarios.has(txtNombreIn.value)
         
-        extraerdato(arreglodatos);
+         	
+         
+// Aquí se debe cambiar el URL del servicio en el BackEnd
+	 const URL_MAIN ='/api/usuarios/';
+			
+	    fetch(URL_MAIN, {
+		  method: 'get'
+		 }).then(function(response) {
+			 response.json().then(function (user) {
+			// console.log(user);
+		    //console.log(user.length);
+			 
+			// Array.from(json).forEach((usuario) => {
+			 for (let i=0; i<user.length ;i++   ){
+				 
+				if (txtNombreIn.value == user[i].usuario && txtContrasenaIn.value == user[i].contrasenia){
+					
+			  //  admin = sessionStorage.setItem ("admin", true);
+                userlogged = sessionStorage.setItem("userlogged", txtNombreIn.value)
+                location.href='./index.html';
+
+					 
+					  console.log("logeado como admin");
+					
+					  break;
+				
+					
+				}else{
+            
+            console.log("Error de datos")
+            Swal.fire(
+                `Usuario o contraseña no validos`,
+                'haz clic en ok para continuar',
+                'error'
+              )//alerterror
+        }
+        txtNombreIn.focus();
+
+				 
+			 }              
+			                      
+			      
+			  //          }); // foreach
+			        });//then
+			    }).catch(function(err) {
+			        console.log(err);
+			    });
+			  
+			   
+			
+
+
+     //   let arreglodatos = usuarios.get(txtNombreIn.value)
+       // let nombredeuduario = usuarios.has(txtNombreIn.value)
+        
+      //  extraerdato(arreglodatos);
 
         if ((nombredeuduario) && (pass == (txtContrasenaIn.value)) ) {
             if(txtNombreIn.value == "admin"){
