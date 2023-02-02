@@ -61,7 +61,7 @@ function validarPrecio(){
 //funciones para validar//
 
 
-btnEnviar.addEventListener("click", function(event){
+btnEnviar.addEventListener("click", async function(event){
     event.preventDefault();
     clearTimeout(idTimeout);
 
@@ -106,7 +106,7 @@ btnEnviar.addEventListener("click", function(event){
             'success'
           )
     }
-        
+   /*     
     let elemento = `{
         "name":"${titulo.value}",
         "img":"${img.value}",
@@ -116,6 +116,32 @@ btnEnviar.addEventListener("click", function(event){
     console.log(elemento);
     datos.push(JSON.parse(elemento));
     localStorage.setItem("datos", JSON.stringify(datos));
+    */
+    
+    
+		const response = await fetch('/api/libros/', {
+			method: 'POST',
+			headers: {
+			  'Accept': 'application/json',
+			  'Content-Type': 'application/json'
+			},
+			body: `{
+			   	"titulo": "${titulo.value}",
+				   "autor": "",
+				   "url": "${img.value}",
+				   "genero": "",
+				   "anioPublicacion": 0,
+		           "precio": 0,
+				   "description": "${autor.value}",
+				   "editorial":""
+			  }`,
+			});
+			
+			response.json().then(data => {
+			  console.log(data);
+			});
+   
+
 
 
     titulo.value = "";

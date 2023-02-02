@@ -79,7 +79,8 @@ let ContrasenaBorderIn =  document.getElementById("ContrasenaBorderIn");
 
 // const submit = document.getElementsByClassName('form-contact')[0];
 
-
+let usuariovalidado;
+let usuarioencontrado =false;
 let idTimeout;
 
 // let datos = []; // new Array();
@@ -103,7 +104,8 @@ function validarNombre(){
 }//validarNombre
 
 function validarUsuario(){
-    return (usuarios.has(txtNombreUp.value))
+	
+    return (usuarioencontrado)
 }
 
 function validarEmail(){
@@ -126,12 +128,27 @@ function validarprimerCaracter(){
 //funciones para validar//
 
 
-btnsubmit.addEventListener("click", function(event){
+btnsubmit.addEventListener("click", async function(event){
     event.preventDefault();
     clearTimeout(idTimeout);
+    const URL_MAIN ='/api/usuarios/';
+    fetch(URL_MAIN, {
+        method: 'get'
+    }).then(function(response) {
+        response.json().then(async function (json) {
+            console.log(json);
+            console.log(json.length);
+            usuariovalidado=json;
+            
 
-
-    if ( (validarUsuario()) || (! validarNombre()) || (! validarEmail()) || (! validarTel()) || (! validarContrasena())) {
+		for(i=0;i<usuariovalidado.length;i++){
+			if(txtNombreUp.value==usuariovalidado[i].usuario){
+				usuarioencontrado = true;
+				break;
+			}
+		}
+		
+		 if ( (validarUsuario()) || (! validarNombre()) || (! validarEmail()) || (! validarTel()) || (! validarContrasena())) {
 
         btnsubmit.style.backgroundColor = "#ff6961"
         if (validarUsuario()) {
@@ -255,6 +272,8 @@ btnsubmit.addEventListener("click", function(event){
             // ContrasenaBorder.style.border = ""
             btnsubmit.style.backgroundColor = "#84b6f4"
         }, 4000);
+        
+        usuarioencontrado=false;
 
         return false;
     }//if ! validaciones
@@ -285,7 +304,25 @@ btnsubmit.addEventListener("click", function(event){
     users.push(JSON.parse(elemento));
     console.log(users);
     localStorage.setItem("users", JSON.stringify(users))
-
+	
+	const response = await fetch('/api/usuarios/', {
+			method: 'POST',
+			headers: {
+			  'Accept': 'application/json',
+			  'Content-Type': 'application/json'
+			},
+			body: `{
+			   "usuario":"${txtNombreUp.value}",
+			    "nombre":"",
+			    "correoElectronico":"${txtEmailUp.value}",
+			    "telefono":"${txtTelUp.value}",
+			    "contrasenia":"${txtContrasenaUp.value}"	
+			  }`,
+			});
+			
+			response.json().then(data => {
+			  console.log(data);
+			});
     
     Swal.fire(
         `¡Gracias por registrarte ${txtNombreUp.value}!`,
@@ -304,6 +341,14 @@ btnsubmit.addEventListener("click", function(event){
       for (let index = 0; index < users.length; index++) {
           agregarUsuarios(users[index])
       }
+            
+        });//then
+    }).catch(function(err) {
+        console.log(err);
+    });
+
+
+   
 
 });//btnsubmit
 
@@ -338,17 +383,68 @@ function extraerdato(item){
     } catch (error) {
         console.error(error);
     }
-
+	let usuarios1;
     
     btnsubmitIn.addEventListener("click", function(event){
         event.preventDefault();
         clearTimeout(idTimeout);
+	
+		const URL_MAIN ='/api/usuarios/';
+    fetch(URL_MAIN, {
+        method: 'get'
+    }).then(function(response) {
+        response.json().then(function (json) {
+            console.log(json);
+            console.log(json.length);
+            usuarios1=json;
+            
+            
+            for(i=0; i<usuarios1.length; i++){
+	   if((txtNombreIn.value==usuarios1[i].usuario)&&(txtContrasenaIn.value==usuarios1[i].contrasenia)){
+		   if(usuarios1[i].administrador==1){
+			   admin = sessionStorage.setItem ("admin", true);
+                userlogged = sessionStorage.setItem("userlogged", txtNombreIn.value)
+                location.href='./index.html';
+                
+		   }else{
+			   loged = sessionStorage.setItem("loged",true);
+                userlogged = sessionStorage.setItem("userlogged", txtNombreIn.value)
+                console.log("logeado");
+                location.href='./index.html';
+		   }
+	   }else{
+		   console.log("Error de datos")
+            Swal.fire(
+                `Usuario o contraseña no validos`,
+                'haz clic en ok para continuar',
+                'error'
+              )//alerterror
+	   }
+	     txtNombreIn.focus();
 
+   }
+            
+            
 
+            Array.from(json).forEach((p, index) => {
+                console.log("Arreglo")
+            }); // foreach
+        });//then
+    }).catch(function(err) {
+        console.log(err);
+    });
+   
+  
+   
+   
+
+	   
+	   
+	   /*
         let arreglodatos = usuarios.get(txtNombreIn.value)
         let nombredeuduario = usuarios.has(txtNombreIn.value)
         
-        extraerdato(arreglodatos);
+        //extraerdato(arreglodatos);
 
         if ((nombredeuduario) && (pass == (txtContrasenaIn.value)) ) {
             if(txtNombreIn.value == "admin"){
@@ -377,7 +473,7 @@ function extraerdato(item){
         }
 
         txtNombreIn.focus();
-
+*/
         });
 
 /*------------INICIO DE SESIÓN------------*/
