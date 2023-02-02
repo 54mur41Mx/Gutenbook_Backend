@@ -40,7 +40,7 @@ public class LibroService {
 		return libroRepository.save(libro);
 	}//AddLibro
 	
-	public Libro updateLibro(Integer libroID, String titulo, String autor, String url, String genero, Integer anioPublicacion, String pais,
+	public Libro updateLibro(Integer libroID, String titulo, String autor, String url, String genero, Integer anioPublicacion, String description,
 			String editorial, Double precio) {
 		Libro tmp = null;
 		if(libroRepository.existsById(libroID)) {
@@ -50,7 +50,7 @@ public class LibroService {
 			if(url!=null)tmp.setUrl(url);
 			if(genero!=null)tmp.setGenero(genero);
 			if(anioPublicacion!=null)tmp.setAnioPublicacion(anioPublicacion);
-			if(pais!=null)tmp.setPais(pais);
+			if(description!=null)tmp.setDescription(description);
 			if(editorial!=null)tmp.setEditorial(editorial);
 			if(precio!=null)tmp.setPrecio(precio.doubleValue());
 			libroRepository.save(tmp);

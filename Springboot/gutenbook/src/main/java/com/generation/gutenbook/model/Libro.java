@@ -22,14 +22,14 @@ public class Libro {
 	private String genero;
 	private Integer anioPublicacion;
 	private Double precio;
-	private String pais;
+	private String description;
 	private String editorial;
 	
 	public Libro() {
 		//Vacio
 	}
 
-	public Libro(String titulo, String autor, String url, String genero, Integer anioPublicacion, Double precio, String pais,
+	public Libro(String titulo, String autor, String url, String genero, Integer anioPublicacion, Double precio, String description,
 			String editorial) {
 		super();
 		this.titulo = titulo;
@@ -38,7 +38,7 @@ public class Libro {
 		this.genero = genero;
 		this.anioPublicacion = anioPublicacion;
 		this.precio = precio;
-		this.pais = pais;
+		this.description = description;
 		this.editorial = editorial;
 	}
 	
@@ -91,12 +91,12 @@ public class Libro {
 		this.precio = precio;
 	}
 
-	public String getPais() {
-		return pais;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setPais(String pais) {
-		this.pais = pais;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getEditorial() {
@@ -114,7 +114,7 @@ public class Libro {
 	@Override
 	public String toString() {
 		return "titulo=" + titulo + ", autor=" + autor + ", url=" + url + ", genero="
-				+ genero + ", anoPublicacion=" + anioPublicacion + ", precio=" + precio + ", pais=" + pais
+				+ genero + ", anoPublicacion=" + anioPublicacion + ", precio=" + precio + ", description=" + description
 				+ ", editorial=" + editorial + "]";
 	}
 	

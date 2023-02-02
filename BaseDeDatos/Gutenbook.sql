@@ -27,11 +27,11 @@ CREATE TABLE IF NOT EXISTS `gutenbook`.`libro` (
   `libroID` INT NOT NULL AUTO_INCREMENT,
   `titulo` VARCHAR(100) NOT NULL,
   `autor` VARCHAR(100) NOT NULL,
-  `url` VARCHAR(300) NOT NULL,
+  `url` VARCHAR(700) NOT NULL,
   `genero` VARCHAR(50) NOT NULL,
   `anio_publicacion` INT NOT NULL,
   `precio` DOUBLE NOT NULL,
-  `pais` VARCHAR(50) NOT NULL,
+  `description` VARCHAR(500) NOT NULL,
   `editorial` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`libroID`),
   UNIQUE INDEX `url_UNIQUE` (`url` ASC) VISIBLE)

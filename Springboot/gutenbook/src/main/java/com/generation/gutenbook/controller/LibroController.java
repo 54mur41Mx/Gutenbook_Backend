@@ -55,10 +55,10 @@ public class LibroController {
 		@RequestParam(required = false) String url,
 		@RequestParam(required = false) String genero,
 		@RequestParam(required = false) Integer anioPublicacion,
-		@RequestParam(required = false) String pais,
+		@RequestParam(required = false) String description,
 		@RequestParam(required = false) String editorial,
 		@RequestParam(required = false) Double precio) {
-		return libroService.updateLibro(libroID, titulo, autor, url, genero,anioPublicacion,pais,editorial, precio);
+		return libroService.updateLibro(libroID, titulo, autor, url, genero,anioPublicacion,description,editorial, precio);
 	}//getProducto
 	
 	
