@@ -136,8 +136,7 @@ btnsubmit.addEventListener("click", async function(event){
         method: 'get'
     }).then(function(response) {
         response.json().then(async function (json) {
-            console.log(json);
-            console.log(json.length);
+            
             usuariovalidado=json;
             
 
@@ -394,8 +393,7 @@ function extraerdato(item){
         method: 'get'
     }).then(function(response) {
         response.json().then(function (json) {
-            console.log(json);
-            console.log(json.length);
+            
             usuarios1=json;
             
             
