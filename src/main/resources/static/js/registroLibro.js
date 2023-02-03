@@ -28,9 +28,9 @@ let btnReset = document.getElementById("btnReset");
 
 //Expresiones para validar//
 
-let regexTitulo = /^[a-zA-ZÀ-ÿ\s]{1,40}$/
+let regexTitulo = /^(?!\s*$).{0,700}$/
 let regexURL = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/
-let regexAutor = /(^[A-Za-z]{3,16})([ ]{0,1})([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})/
+let regexAutor = /^(?!\s*$).{0,700}$/
 let regexPrecio = /^\d+(,\d{3})*(\.\d{1,2})?$/;
 
 //funciones para validar//
@@ -131,7 +131,7 @@ btnEnviar.addEventListener("click", async function(event){
 				   "url": "${img.value}",
 				   "genero": "",
 				   "anioPublicacion": 0,
-		           "precio": 0,
+		           "precio": "${precio.value}",
 				   "description": "${autor.value}",
 				   "editorial":""
 			  }`,
