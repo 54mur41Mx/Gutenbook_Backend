@@ -403,12 +403,14 @@ function extraerdato(item){
 			   admin = sessionStorage.setItem ("admin", true);
                 userlogged = sessionStorage.setItem("userlogged", txtNombreIn.value)
                 location.href='./index.html';
+                break;
                 
 		   }else{
 			   loged = sessionStorage.setItem("loged",true);
                 userlogged = sessionStorage.setItem("userlogged", txtNombreIn.value)
                 console.log("logeado");
                 location.href='./index.html';
+                break;
 		   }
 	   }else{
 		   console.log("Error de datos")
