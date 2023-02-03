@@ -1,3 +1,5 @@
+
+
 let signInBtn = document.querySelector("#sign-in-btn");
 let signUpBtn = document.querySelector("#sign-up-btn");
 let container = document.querySelector(".container-register");
@@ -10,10 +12,10 @@ let pass
 let userlogged
 
 // Arreglo de usuarios
-usuarios = new Map ();
+//usuarios = new Map ();
 
-usuarios.set('admin',{"correo":"admin@gutenbook.com","tel":"5562441585", "contraseña":"P4$$w0rd"});
-usuarios.set('pepito',{"correo":"pepepecas@gmailcom","tel":"5519451524", "contraseña":"Contraseña.123"});
+//usuarios.set('admin',{"correo":"admin@gutenbook.com","tel":"5562441585", "contraseña":"P4$$w0rd"});
+//usuarios.set('pepito',{"correo":"pepepecas@gmailcom","tel":"5519451524", "contraseña":"Contraseña.123"});
 
 
 signUpBtn.addEventListener('click', () => {
@@ -294,6 +296,7 @@ btnsubmit.addEventListener("click", async function(event){
     messageContrasenaUp4.style.display = "none"
     messageContrasenaUp5.style.display = "none"
 
+   /*
     let elemento = `{
         "Usuario": "${txtNombreUp.value}",
         "Email": "${txtEmailUp.value}",
@@ -353,7 +356,7 @@ btnsubmit.addEventListener("click", async function(event){
 });//btnsubmit
 
 
-
+/*
 function agregarUsuarios(item){
     usuarios.set(item.Usuario,{"correo":item.Email,"tel":item.Telefono, "contraseña":item.Contrasena});
 }
@@ -366,7 +369,7 @@ function extraerdato(item){
     }
      
 
-}
+} 
 
     try {
         var captura = JSON.parse(localStorage.getItem('users'));
