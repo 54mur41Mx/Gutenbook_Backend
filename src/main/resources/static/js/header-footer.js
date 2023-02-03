@@ -43,7 +43,7 @@ header.innerHTML =  `
               <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="Contacto.html">Contactos</a>
+              <a class="nav-link" href="contacto.html">Contactos</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="nosotros.html">Nosotros</a>
